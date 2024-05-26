@@ -4,16 +4,52 @@ const addEmployeesBtn = document.querySelector('#add-employees-btn');
 // Collect employee data
 const collectEmployees = function() {
   // TODO: Get user input to create and return an array of employee objects
-}
-// test comment 
+  let employee;
+  let addNewEmployee = true;
+  let employeeArray = [];
+  while (addNewEmployee == true) {
+    employee = new Object();
+    employee.firstName = prompt("Entry first name: ");
+    employee.lastName = prompt("Entry last name: ");
+    salary = prompt("Entry salary: ");
+    // Check if salary is a valid number
+    if (isNaN(salary)){
+      salary = 0;
+    }
+    // Cast salary to integer 
+    employee.salary = parseInt(salary);
+    addNewEmployee = confirm("Add new employee?");
+    employeeArray.push(employee);
+  }
+  return employeeArray;
+  }
+
 // Display the average salary
 const displayAverageSalary = function(employeesArray) {
-  // TODO: Calculate and display the average salary
+  const numberOfEmployees = employeesArray.length;
+
+  let totalSalary = 0;
+  
+  for(let i = 0; i < numberOfEmployees; i++){
+    totalSalary = totalSalary + employeesArray[i].salary;
+  }
+ 
+  const avgSalary = totalSalary / numberOfEmployees;
+
+  console.log(`The average employee salary between our ${numberOfEmployees} employee(s) is $${avgSalary}.00`)
+ 
 }
 
 // Select a random employee
 const getRandomEmployee = function(employeesArray) {
-  // TODO: Select and display a random employee
+  // Random integer is selected as an index for the array to reference
+  const randomNumber = getRandomInt(employeesArray.length - 1);
+  console.log(`Congrats to ${employeesArray[randomNumber].firstName} our random lottery winner!`)
+
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
 /*
@@ -60,7 +96,7 @@ const displayEmployees = function(employeesArray) {
 const trackEmployeeData = function() {
   const employees = collectEmployees();
 
-  console.table(employees);
+  //console.table(employees);
 
   displayAverageSalary(employees);
 
